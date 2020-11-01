@@ -2,11 +2,10 @@ import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {ContactResponse, ContactResponseObject} from './account.contact-response';
-import {Contact} from './contact';
-import {ContactResp} from './contact-response';
-import {PostalAddress} from './address-postal';
-import {ApiConsts} from '../../../consts/api-consts';
+import {Contact} from '../../models/contact';
+import {PostalAddress} from '../../models/address-postal';
+import {ApiConsts} from '../../consts/api-consts';
+import {ContactResponse} from '../../models/contact-response';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ import {ApiConsts} from '../../../consts/api-consts';
 
 export class AccountService {
 
-  fullAccountEndpoint = environment.apiUrl + ApiConsts.RESOURCE_ACCOUNT;
+  fullAccountEndpoint: string = environment.apiUrl + ApiConsts.RESOURCE_ACCOUNT;
 
   constructor(private http: HttpClient) {
   }
@@ -25,8 +24,8 @@ export class AccountService {
     return this.http.get<ContactResponse>(this.fullAccountEndpoint);
   }
 
-  getUser(id): Observable<ContactResponseObject> {
-    return this.http.get<ContactResponseObject>(this.fullAccountEndpoint + '/' + id);
+  getUser(id): Observable<ContactResponse> {
+    return this.http.get<ContactResponse>(this.fullAccountEndpoint + '/' + id);
   }
 
   updateUser(id, user): Observable<any | null> {
@@ -34,7 +33,7 @@ export class AccountService {
   }
 
   saveUser(contact: Contact, postalAddress: PostalAddress): Subscription {
-    return this.http.post<ContactResp>(this.fullAccountEndpoint, contact)
+    return this.http.post<ContactResponse>(this.fullAccountEndpoint, contact)
       .subscribe((responseObj) => {
         this.http.post(this.fullAccountEndpoint + '/' +
           responseObj.identity.split('/')[8] + '/address', postalAddress)

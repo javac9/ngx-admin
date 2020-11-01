@@ -3,9 +3,9 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
 import {AccountService} from './account.service';
-import {Contact} from './contact';
-import {PostalAddress} from './address-postal';
-import {ApiConsts} from '../../../consts/api-consts';
+import {Contact} from '../../models/contact';
+import {PostalAddress} from '../../models/address-postal';
+import {ApiConsts} from '../../consts/api-consts';
 
 @Component({
   selector: 'ngx-custom-contact-form',
