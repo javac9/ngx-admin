@@ -6,6 +6,7 @@ import {ContactResponse, ContactResponseObject} from './account.contact-response
 import {Contact} from './contact';
 import {ContactResp} from './contact-response';
 import {PostalAddress} from './address-postal';
+import {ApiConsts} from '../../../consts/api-consts';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,7 @@ import {PostalAddress} from './address-postal';
 
 export class AccountService {
 
-  baseUrl = environment.apiUrl;
-  endpoint = 'org.opencrx.kernel.account1/provider/CRX/segment/Standard/';
+  fullAccountEndpoint = environment.apiUrl + ApiConsts.RESOURCE_ACCOUNT;
 
   constructor(private http: HttpClient) {
   }
@@ -22,21 +22,21 @@ export class AccountService {
   /* UserManagements */
 
   getUsers(): Observable<ContactResponse> {
-    return this.http.get<ContactResponse>(this.baseUrl + this.endpoint + 'account');
+    return this.http.get<ContactResponse>(this.fullAccountEndpoint);
   }
 
   getUser(id): Observable<ContactResponseObject> {
-    return this.http.get<ContactResponseObject>(this.baseUrl + this.endpoint + 'account/' + id);
+    return this.http.get<ContactResponseObject>(this.fullAccountEndpoint + '/' + id);
   }
 
   updateUser(id, user): Observable<any | null> {
-    return this.http.put(this.baseUrl + this.endpoint + 'account/' + id, user);
+    return this.http.put(this.fullAccountEndpoint + '/' + id, user);
   }
 
   saveUser(contact: Contact, postalAddress: PostalAddress): Subscription {
-    return this.http.post<ContactResp>(this.baseUrl + this.endpoint + 'account', contact)
+    return this.http.post<ContactResp>(this.fullAccountEndpoint, contact)
       .subscribe((responseObj) => {
-        this.http.post(this.baseUrl + this.endpoint + 'account/' +
+        this.http.post(this.fullAccountEndpoint + '/' +
           responseObj.identity.split('/')[8] + '/address', postalAddress)
           .subscribe(r => console.log(r));
       });

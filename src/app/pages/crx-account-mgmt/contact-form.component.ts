@@ -5,6 +5,7 @@ import {NbDialogService} from '@nebular/theme';
 import {AccountService} from './account.service';
 import {Contact} from './contact';
 import {PostalAddress} from './address-postal';
+import {ApiConsts} from '../../../consts/api-consts';
 
 @Component({
   selector: 'ngx-custom-contact-form',
@@ -30,11 +31,11 @@ export class ContactFormComponent implements OnInit {
   ngOnInit() {
 
     // prep dummy contact
-    this.contact['@type'] = 'org.opencrx.kernel.account1.Contact';
+    this.contact['@type'] = ApiConsts.ACCOUNT_TYPE_CONTACT;
     this.contact.firstName = 'ngFirstName';
     this.contact.lastName = 'ngLastName';
     // prep dummy postalAddress
-    this.postalAddress['@type'] = 'org.opencrx.kernel.account1.PostalAddress';
+    this.postalAddress['@type'] = ApiConsts.ADDRESSABLE_TYPE_POSTAL;
     this.postalAddress.postalCity = 'XyzCity';
 
     this.accountSrv.saveUser(this.contact, this.postalAddress);
