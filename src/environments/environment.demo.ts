@@ -10,5 +10,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://cors-anywhere.herokuapp.com/http://3.126.242.88:8080/opencrx-rest-CRX/',
+  apiUrl: 'https://cors-anywhere.herokuapp.com/http://demo.opencrx.org/opencrx-rest-CRX/',
 };
