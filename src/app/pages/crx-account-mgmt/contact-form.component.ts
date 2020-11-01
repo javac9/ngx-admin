@@ -1,23 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
-
-interface Contact {
-  firstName: string;
-  lastName: string;
-}
-
-interface AdditionalInfo {
-  salutation: string;
-  dob: string;
-  gender: string;
-}
-
-interface Account {
-  contact: Contact;
-  addtionalInfo: AdditionalInfo;
-}
+import {AccountService} from './account.service';
+import {Contact} from './contact';
+import {PostalAddress} from './address-postal';
 
 @Component({
   selector: 'ngx-custom-contact-form',
@@ -26,14 +13,31 @@ interface Account {
 })
 
 export class ContactFormComponent implements OnInit {
+
+  contact: Contact = new Contact();
+  postalAddress: PostalAddress = new PostalAddress();
+
   accountForm: FormGroup = null;
 
   constructor(
-    private fb: FormBuilder,
     private dialogService: NbDialogService,
     private http: HttpClient,
+    private accountSrv: AccountService,
   ) {
 
+  }
+
+  ngOnInit() {
+
+    // prep dummy contact
+    this.contact['@type'] = 'org.opencrx.kernel.account1.Contact';
+    this.contact.firstName = 'ngFirstName';
+    this.contact.lastName = 'ngLastName';
+    // prep dummy postalAddress
+    this.postalAddress['@type'] = 'org.opencrx.kernel.account1.PostalAddress';
+    this.postalAddress.postalCity = 'XyzCity';
+
+    this.accountSrv.saveUser(this.contact, this.postalAddress);
   }
 
   get firstName() {
@@ -54,10 +58,6 @@ export class ContactFormComponent implements OnInit {
 
   get gender() {
     return this.accountForm.get('additionalInfo.gender');
-  }
-
-  ngOnInit() {
-
   }
 
   saveData() {

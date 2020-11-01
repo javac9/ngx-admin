@@ -17,6 +17,7 @@ import {
 
 import {ThemeModule} from './../../@theme/theme.module';
 import {ContactFormComponent} from './contact-form.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import {ContactFormComponent} from './contact-form.component';
     NbSelectModule,
     NbUserModule,
     NbAutocompleteModule,
+    RouterModule,
   ],
   declarations: [
     ContactFormComponent,

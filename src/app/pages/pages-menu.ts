@@ -5,14 +5,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'CRX Account Management',
     icon: 'home-outline',
-    link: '/page/crx-account-management',
-    home: true,
+    link: '/pages/crx-account-management',
   },
 
   {
     title: 'E-commerce',
     icon: 'shopping-cart-outline',
     link: '/pages/dashboard',
+    home: true,
   },
   {
     title: 'IoT Dashboard',

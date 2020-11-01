@@ -75,7 +75,8 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'crx-account-management',
+      // redirectTo: 'crx-account-management',
+      redirectTo: 'dashboard',
       pathMatch: 'full',
     },
     {
